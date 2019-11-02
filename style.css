@@ -1,21 +1,39 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
 body {
     font-size: 24px;
     color: darkblue;
     font-weight: 900;
     font-style: italic;
-
+    height: 90vh;
+    background: center / cover no-repeat url('bg.jpg');
 }
 
 .input {
     border: 1px solid green;
     width: 800px;
-    height: 100px;
-
+    height: 150px;
+    display: block;
+    padding: 10px;
+    background-color: green;
+    color: wheat;
+    font-family: 'Comic Sans';
+    font-weight: 700;
+    font-style: italic;
+    font-size: 24px;
+    line-height: 40px;
+    margin: 10% auto 0;
 }
 
 .keyboard {
     width: 800px;
     height: 300px;
+    margin: 0 auto;
     background-color: bisque;
     display: flex;
     flex-direction: column;
@@ -40,6 +58,8 @@ body {
 .row:last-child .buttons:nth-child(4) {
     flex-basis: 113%;
 }
+
+.row:first-child .buttons:last-child,
 .row:nth-child(2) .buttons:first-child,
 .row:nth-child(3) .buttons:first-child,
 .row:nth-child(3) .buttons:nth-last-child(2),
@@ -51,5 +71,14 @@ body {
     border: 1px solid darkgreen;
     width: 145px;
     text-align: center;
+}
 
+.buttons:hover {
+    transform: scale(1.1);
+    background-color: rgba(54, 219, 95, 0.911);
+}
+
+.selected {
+    background-color: #17976d;
+    border-radius: 50%;
 }
