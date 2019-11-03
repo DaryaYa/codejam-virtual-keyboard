@@ -82,3 +82,10 @@ body {
     background-color: #17976d;
     border-radius: 50%;
 }
+.selected1 {
+    background-color: red;
+}
+
+.keysEng {
+    color: rgb(54, 34, 3);
+} 

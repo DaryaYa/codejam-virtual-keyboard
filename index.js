@@ -8,6 +8,7 @@ body.prepend(textarea);
 let keyboard = document.createElement('div');
 keyboard.className = 'keyboard';
 
+let shiftBtn = false;
 
 
 for (let i =0; i< 5; i++) {
@@ -32,21 +33,36 @@ let keysEng = ['~', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 
 
 let keysRus = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Caps Lock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', '', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'Sft', '←', '↑', 'Ctrl', 'Fn', 'Alt', 'Space', 'Alt', 'Win', 'Print', 'Ctrl', '↓', '→'];
 
-for(let i = 0; i < keysEng.length; i++) {
-    butCollection[i].textContent = keysEng[i];
-}
+let lang ='';
 
-const clear = function() {
+lang = localStorage.getItem('lang');
+
+for (let i = 0; i <keysRus.length; i++) {
+    if (lang == 'eng') {
+    keyboard.classList.add('keysEng');
+    butCollection[i].textContent = keysEng[i];
+    localStorage.setItem('lang', 'rus');
+    }  else if(lang == 'rus') {
+    keyboard.classList.remove('keysEng');
+    butCollection[i].textContent = keysRus[i];
+    localStorage.setItem('lang', 'eng');
+    }
+}   
+/*const clear = function() {
    setTimeout(() => {
         butCollection.forEach(buttons => buttons.classList.remove('selected'))
     , 1000}
-    );}
+    );}*/
 
 const typing = event => {
   
     const target = event.target;
-    console.log(target);
-    
+  
+    butCollection.forEach(buttons => buttons.classList.remove('selected'));
+    butCollection.forEach(buttons => buttons.classList.remove('selected1'));
+
+
+    if(target.classList == 'buttons') {
     if(target.textContent == 'Backspace') {
         textarea.value = textarea.value.slice(0, -1);
     }   else if(target.textContent == 'Tab' || target.textContent == 'Caps Lock' || target.textContent == 'Shift' ||                  target.textContent == 'Ctrl' || target.textContent == 'Enter' || target.textContent == 'Alt' ||                       target.textContent == 'Fn' || target.textContent == 'Win' || target.textContent == 'Sft' ||                           target.textContent == 'Print') {
@@ -54,13 +70,56 @@ const typing = event => {
     }   else if(target.textContent == 'Space') {
                        textarea.value += ' ';
     }
-        else {
+        else  {
                 textarea.value += target.textContent;
     } 
     target.classList.add('selected');
-    console.log(target.classList);
+    }
 }
 
-keyboard.addEventListener('click', typing);
-document.addEventListener('click', clear); 
+document.addEventListener('click', typing);
+
+const keyDown = (event) => {
+    if(event.keyCode == 16) {
+        shiftBtn = true;
+    }
+}
+const keyUp = (event) => {
+    if(event.keyCode == 18) {
+       keyboard.classList.toggle('keysEng');
+       lang = localStorage.getItem('lang');
+       for (let i = 0; i <keysRus.length; i++) {
+            if (lang == 'eng') {
+            
+            butCollection[i].textContent = keysRus[i];
+            localStorage.setItem('lang', 'rus');
+        }   if(lang == 'rus') {
+            
+            butCollection[i].textContent = keysEng[i];
+            localStorage.setItem('lang', 'eng');
+        }
+    } 
+    } else if(event.keyCode == 16) {
+        shiftBtn = false;
+    }          
+}
+
+document.addEventListener('keydown', keyDown);
+document.addEventListener('keyup', keyUp);
+
+const realKey = (event) => {
+        butCollection.forEach(buttons => buttons.classList.remove('selected1'));
+        butCollection.forEach(buttons => buttons.classList.remove('selected'));
+
+    for(let i = 0; i < keysEng.length; i++) {
+    if (event.key == keysEng[i])  {
+        butCollection[i].classList.add('selected1');
+    } else if (event.key == keysRus[i]) {
+        butCollection[i].classList.add('selected1');
+    }
+    }  
+}
+
+document.addEventListener('keydown', realKey);
+
     
