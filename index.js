@@ -29,9 +29,12 @@ body.append(keyboard);
 let butCollection = keyboard.querySelectorAll('.buttons');
 
 
-let keysEng = ['~', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i','o','p', '[', ']', '/', 'Caps Lock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '"', 'Enter', '', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'Sft', '←', '↑', 'Ctrl', 'Fn', 'Alt', 'Space', 'Alt', 'Win', 'Print', 'Ctrl', '↓', '→'];
+let keysEng = ['~', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i','o','p', '[', ']', '/', 'Caps Lock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '"', 'Enter', '', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'Sft', '←', '↑', 'Ctrl', 'Fn', 'Alt', 'Space', 'Fn', 'Win', 'Print', 'Ctrl', '↓', '→'];
 
-let keysRus = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Caps Lock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', '', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'Sft', '←', '↑', 'Ctrl', 'Fn', 'Alt', 'Space', 'Alt', 'Win', 'Print', 'Ctrl', '↓', '→'];
+let keysRus = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Caps Lock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', '', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'Sft', '←', '↑', 'Ctrl', 'Fn', 'Alt', 'Space', 'Fn', 'Win', 'Print', 'Ctrl', '↓', '→'];
+
+let engUpp = String.prototype.toUpperCase.apply(keysEng).split(",");
+let rusUpp = String.prototype.toUpperCase.apply(keysRus).split(",");
 
 let lang ='';
 
@@ -100,7 +103,7 @@ const keyUp = (event) => {
         }
     } 
     } else if(event.keyCode == 16) {
-        shiftBtn = false;
+        shiftBtn = false;  
     }          
 }
 
@@ -120,6 +123,35 @@ const realKey = (event) => {
     }  
 }
 
-document.addEventListener('keydown', realKey);
+document.addEventListener('keyup', realKey);
 
+const capsLock = (event) => {
+    if(event.keyCode == 20 ) {
+
+        keyboard.classList.toggle('upperCase');
+
+        if(keyboard.classList.contains('upperCase')) {
+            lang = localStorage.getItem('lang');
+
+            for (let i = 0; i <keysRus.length; i++) {
+                if (lang == 'eng') {
+           butCollection[i].textContent = engUpp[i];
+          }     else if(lang == 'rus') {
+            butCollection[i].textContent = rusUpp[i];
+          }
+            }  
+         } else if(!keyboard.classList.contains('upperCase')) {
+            lang = localStorage.getItem('lang');
+
+            for (let i = 0; i <keysRus.length; i++) {
+                if (lang == 'eng') {
+            butCollection[i].textContent = keysEng[i];
+          }     else if(lang == 'rus') {
+            butCollection[i].textContent = keysRus[i];
+          }
+         }         
+        }
+    }
+}
+document.addEventListener('keyup', capsLock);
     
