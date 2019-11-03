@@ -41,7 +41,7 @@ let lang ='';
 lang = localStorage.getItem('lang');
 
 for (let i = 0; i <keysRus.length; i++) {
-    if (lang == 'eng') {
+    if (lang == 'eng' || !lang) {
     keyboard.classList.add('keysEng');
     butCollection[i].textContent = keysEng[i];
     localStorage.setItem('lang', 'rus');
@@ -51,11 +51,6 @@ for (let i = 0; i <keysRus.length; i++) {
     localStorage.setItem('lang', 'eng');
     }
 }   
-/*const clear = function() {
-   setTimeout(() => {
-        butCollection.forEach(buttons => buttons.classList.remove('selected'))
-    , 1000}
-    );}*/
 
 const typing = event => {
   
