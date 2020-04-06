@@ -1,6 +1,7 @@
 let textarea = document.createElement('textarea');
 textarea.style.resize = 'none';
 textarea.className = 'input';
+textarea.autofocus = true;
 
 let body = document.querySelector('body');
 body.prepend(textarea);

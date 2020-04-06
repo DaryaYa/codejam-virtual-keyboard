@@ -11,7 +11,7 @@ body {
     font-weight: 900;
     font-style: italic;
     height: 79vh;
-    background:black center / cover no-repeat url('bg.jpg');
+    background: black center / cover no-repeat url('./bg.jpg');
 }
 
 .input {
@@ -28,6 +28,7 @@ body {
     font-size: 24px;
     line-height: 40px;
     margin: 10% auto 0;
+
 }
 
 .keyboard {
@@ -45,6 +46,7 @@ body {
     height: 60px;
     display: flex;
     justify-content: space-around;
+
 }
 
 .row:nth-child(3) .buttons:last-child {
@@ -70,7 +72,9 @@ body {
 .buttons {
     border: 1px solid darkgreen;
     width: 145px;
+    margin: 3px;
     text-align: center;
+
 }
 
 .buttons:hover {
@@ -80,12 +84,15 @@ body {
 
 .selected {
     background-color: #17976d;
-    border-radius: 50%;
+    /* border: solid 2px black; */
+    box-shadow: black 3px 3px 5px inset;
 }
+
 .selected1 {
     background-color: red;
+    box-shadow: black 3px 3px 5px inset;
 }
 
 .keysEng {
     color: rgb(54, 34, 3);
-} 
+}
