@@ -112,25 +112,6 @@ let keyUp = (event) => {
      } 
 }
 
-// let keyUp1 = (event) => {
-//     if (event.keyCode == 16 && altBtn) {
-//        keyboard.classList.toggle('keysEng');
-//     //    lang = localStorage.getItem('lang');
-//        for (let i = 0; i <keysRus.length; i++) {
-//             if (lang == 'eng') {            
-//             butCollection[i].textContent = keysEng[i];
-//             localStorage.setItem('lang', 'rus');
-//         }  if(lang == 'rus') {            
-//             butCollection[i].textContent = keysRus[i];
-//             localStorage.setItem('lang', 'eng');
-//         }
-//     } 
-//     } else if (event.keyCode == 18) {
-//         altBtn = false;
-//     }         
-// }
-
-
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 // document.addEventListener('keyup', keyUp1);
@@ -189,32 +170,30 @@ document.addEventListener('keydown', realKey);
 
 const capsLock = (event) => {
     if(event.keyCode == 20 ) {
-
         keyboard.classList.toggle('upperCase');
+        lang = localStorage.getItem('lang');
 
-        if(keyboard.classList.contains('upperCase')) {
-            lang = localStorage.getItem('lang');
-
+            if (keyboard.classList.contains('upperCase')) {
             for (let i = 0; i <keysRus.length; i++) {
                 if (lang == 'eng') {
-           butCollection[i].textContent = engUpp[i];
+           butCollection[i].textContent = rusUpp[i];
           }     else if(lang == 'rus') {
-            butCollection[i].textContent = rusUpp[i];
+            butCollection[i].textContent = engUpp[i];
           }
-            }  
-         } else if(!keyboard.classList.contains('upperCase')) {
-            lang = localStorage.getItem('lang');
-
+            } 
+      }  else if(!keyboard.classList.contains('upperCase')) {
+            
             for (let i = 0; i <keysRus.length; i++) {
                 if (lang == 'eng') {
-            butCollection[i].textContent = keysEng[i];
-          }     else if(lang == 'rus') {
-            butCollection[i].textContent = keysRus[i];
-          }
-         }         
+                    butCollection[i].textContent = keysRus[i];
+                } else if(lang == 'rus') {
+                    butCollection[i].textContent = keysEng[i];
+                }       
+            }                 
         }
     }
 }
+
 
 document.addEventListener('keyup', capsLock);
 
