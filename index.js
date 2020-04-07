@@ -30,16 +30,17 @@ body.append(keyboard);
 let butCollection = keyboard.querySelectorAll('.buttons');
 
 
-let keysEng = ['~', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i','o','p', '[', ']', '/', 'Caps Lock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '"', 'Enter', '', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '<', '>', '/', 'Sft', '←', '↑', 'Ctrl', 'Fn', 'Alt', 'Space', 'Fn', 'Win', 'Print', 'Ctrl', '↓', '→'];
+let keysEng = ['~', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i','o','p', '[', ']', '/', 'Caps Lock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'Enter', '', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'Sft', '←', '↑', 'Ctrl', 'Win', 'Alt', 'Space', 'Fn', 'Win', 'Print', 'Ctrl', '↓', '→'];
 
-let keysRus = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Caps Lock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', '', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'Sft', '←', '↑', 'Ctrl', 'Fn', 'Alt', 'Space', 'Fn', 'Win', 'Print', 'Ctrl', '↓', '→'];
+let keysRus = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Caps Lock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', '', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'Sft', '←', '↑', 'Ctrl', 'Win', 'Alt', 'Space', 'Fn', 'Win', 'Print', 'Ctrl', '↓', '→'];
 
 let engUpp = String.prototype.toUpperCase.apply(keysEng).split(",");
 let rusUpp = String.prototype.toUpperCase.apply(keysRus).split(",");
 
 let lang ='';
-
-lang = localStorage.getItem('lang');
+if(!localStorage.getItem('lang')) {localStorage.setItem('lang', 'eng')} else {
+    lang = localStorage.getItem('lang');
+}
 
 for (let i = 0; i <keysRus.length; i++) {
     if (lang == 'eng' || !lang) {
@@ -74,17 +75,22 @@ const typing = event => {
     } 
     target.classList.add('selected');
     }
+
+    setTimeout(() => {
+        butCollection.forEach(buttons => buttons.classList.remove('selected'));
+    }, 300);
 }
 
 document.addEventListener('click', typing);
 
 const keyDown = (event) => {
     if(event.keyCode == 16) {
+        
         shiftBtn = true;
-    }
+    } else {shiftBtn = false;}
 }
 const keyUp = (event) => {
-    if(event.keyCode == 18) {
+    if(event.keyCode == 18 && shiftBtn == true) {
        keyboard.classList.toggle('keysEng');
        lang = localStorage.getItem('lang');
        for (let i = 0; i <keysRus.length; i++) {
@@ -107,19 +113,54 @@ document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 
 const realKey = (event) => {
+    // textarea.focus();
         butCollection.forEach(buttons => buttons.classList.remove('selected1'));
         butCollection.forEach(buttons => buttons.classList.remove('selected'));
+        let target = event.code;
+        console.log(target, event.keyCode);       
 
     for(let i = 0; i < keysEng.length; i++) {
     if (event.key == keysEng[i] || event.key == engUpp[i])  {
         butCollection[i].classList.add('selected1');
+
     } else if (event.key == keysRus[i] || event.key == rusUpp[i]) {
         butCollection[i].classList.add('selected1');
-    } 
+
+    } else if (target == 'Space') {
+        butCollection[59].classList.add('selected1');
+
+    } else if (target == 'ArrowLeft') {
+        butCollection[54].classList.add('selected1');
+    } else if (target == 'ArrowUp') {
+        butCollection[55].classList.add('selected1');
+    } else if (target == 'ArrowRight') {
+        butCollection[65].classList.add('selected1');
+    } else if (target == 'ArrowDown') {
+        butCollection[64].classList.add('selected1');
+    } else if (target == 'ControlLeft') {
+        butCollection[56].classList.add('selected1');
+    } else if (target == 'ControlRight') {
+        butCollection[63].classList.add('selected1');
+    } else if (target == 'CapsLock') {
+        butCollection[28].classList.add('selected1');
+    } else if (target == 'ShiftRight') {
+        butCollection[53].classList.add('selected1');
+    } else if (target == 'ContextMenu') {
+        butCollection[62].classList.add('selected1');
+    } else if (target == 'MetaRight') {
+        butCollection[61].classList.add('selected1');
+    } else if (target == 'MetaLeft') {
+        target.preventDefault();
+        butCollection[57].classList.add('selected1');
+    }
+    
     }  
+    setTimeout(() => {
+        butCollection.forEach(buttons => buttons.classList.remove('selected1'));
+    }, 300);
 }
 
-document.addEventListener('keyup', realKey);
+document.addEventListener('keydown', realKey);
 
 const capsLock = (event) => {
     if(event.keyCode == 20 ) {
@@ -150,4 +191,6 @@ const capsLock = (event) => {
     }
 }
 document.addEventListener('keyup', capsLock);
+
+
     
