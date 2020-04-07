@@ -9,7 +9,8 @@ body.prepend(textarea);
 let keyboard = document.createElement('div');
 keyboard.className = 'keyboard';
 
-let shiftBtn = true;
+let shiftBtn = false;
+let altBtn = false;
 
 
 for (let i =0; i< 5; i++) {
@@ -49,14 +50,13 @@ lang = localStorage.getItem('lang');
 
 for (let i = 0; i <keysRus.length; i++) {
     if (lang == 'eng' || !lang) {
-    keyboard.classList.add('keysEng');
-    butCollection[i].textContent = keysEng[i];
-            //////////////////////////////////////////// TODO FIX 
-    // localStorage.setItem('lang', 'rus'); 
-    }  else if(lang == 'rus') {
     keyboard.classList.remove('keysEng');
     butCollection[i].textContent = keysRus[i];
-    // localStorage.setItem('lang', 'eng');
+           
+    }  else if(lang == 'rus') {
+    keyboard.classList.add('keysEng');
+    butCollection[i].textContent = keysEng[i];
+   
     }
 }   
 
@@ -87,39 +87,60 @@ const typing = event => {
 document.addEventListener('click', typing);
 
 const keyDown = (event) => {
-    if(event.keyCode == 16) {
-        
-        shiftBtn = true;
-    } else {shiftBtn = false;}
+    if(event.keyCode == 16) {        
+        shiftBtn = true;    
+    } else if (event.keyCode == 18) {
+        altBtn = true;
+    } 
 }
-const keyUp = (event) => {
-    if(event.keyCode == 18 && shiftBtn == true) {
+
+let keyUp = (event) => {
+    if (event.keyCode == 18 && shiftBtn) {
        keyboard.classList.toggle('keysEng');
-       lang = localStorage.getItem('lang');
+        lang = localStorage.getItem('lang');
        for (let i = 0; i <keysRus.length; i++) {
-            if (lang == 'eng') {
-            
+            if (lang == 'eng') {            
             butCollection[i].textContent = keysEng[i];
             localStorage.setItem('lang', 'rus');
-        }   if(lang == 'rus') {
-            
+        }  if(lang == 'rus') {            
             butCollection[i].textContent = keysRus[i];
             localStorage.setItem('lang', 'eng');
         }
     } 
-    } else if(event.keyCode == 16) {
-        shiftBtn = false;  
-    }          
+    // } else if (event.keyCode == 16) {
+    //     shiftBtn = false;  
+     } 
 }
+
+// let keyUp1 = (event) => {
+//     if (event.keyCode == 16 && altBtn) {
+//        keyboard.classList.toggle('keysEng');
+//     //    lang = localStorage.getItem('lang');
+//        for (let i = 0; i <keysRus.length; i++) {
+//             if (lang == 'eng') {            
+//             butCollection[i].textContent = keysEng[i];
+//             localStorage.setItem('lang', 'rus');
+//         }  if(lang == 'rus') {            
+//             butCollection[i].textContent = keysRus[i];
+//             localStorage.setItem('lang', 'eng');
+//         }
+//     } 
+//     } else if (event.keyCode == 18) {
+//         altBtn = false;
+//     }         
+// }
+
 
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
+// document.addEventListener('keyup', keyUp1);
+
 
 const realKey = (event) => {
     textarea.focus();
 
         let target = event.code;
-        console.log(target, event.keyCode);       
+        console.log(target, event.keyCode, event.ctrlKey);       
 
     for (let i = 0; i < keysEng.length; i++) {
     
@@ -194,8 +215,13 @@ const capsLock = (event) => {
         }
     }
 }
+
 document.addEventListener('keyup', capsLock);
 
+// let current = lang;
+// if (current == 'eng') {
+//     localStorage.setItem('lang', 'rus')
+// } else {localStorage.setItem('lang', 'eng')}
 
 
 
