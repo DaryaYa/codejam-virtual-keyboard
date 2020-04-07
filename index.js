@@ -9,7 +9,7 @@ body.prepend(textarea);
 let keyboard = document.createElement('div');
 keyboard.className = 'keyboard';
 
-let shiftBtn = false;
+let shiftBtn = true;
 
 
 for (let i =0; i< 5; i++) {
@@ -26,50 +26,50 @@ keyboard.append(row);
 }
 
 body.append(keyboard);
-let instruction = document.createElement('div');
+
+const instruction = document.createElement('div');
 instruction.classList.add('instruction');
-instruction.textContent = `Press Alt+Shift to change the language`;
+instruction.innerHTML = '<p>Press Alt+Shift to change the language</p><p>Windows</p>';
+
 body.append(instruction);
 
 let butCollection = keyboard.querySelectorAll('.buttons');
 
 
-let keysEng = ['\`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i','o','p', '[', ']', '\\', 'Caps Lock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'Enter', '', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'Sft', '←', '↑', 'Ctrl', 'Win', 'Alt', 'Space', 'Fn', 'Win', 'Print', 'Ctrl', '↓', '→'];
+const keysEng = ['\`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i','o','p', '[', ']', '\\', 'Caps Lock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'Enter', '', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'Sft', '←', '↑', 'Ctrl', 'Win', 'Alt', 'Space', 'Fn', 'Win', 'Print', 'Ctrl', '↓', '→'];
 
-let keysRus = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Caps Lock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', '', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'Sft', '←', '↑', 'Ctrl', 'Win', 'Alt', 'Space', 'Fn', 'Win', 'Print', 'Ctrl', '↓', '→'];
+const keysRus = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Caps Lock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', '', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'Sft', '←', '↑', 'Ctrl', 'Win', 'Alt', 'Space', 'Fn', 'Win', 'Print', 'Ctrl', '↓', '→'];
 
 let engUpp = String.prototype.toUpperCase.apply(keysEng).split(",");
 let rusUpp = String.prototype.toUpperCase.apply(keysRus).split(",");
 
 let lang ='';
-if(!localStorage.getItem('lang')) {localStorage.setItem('lang', 'eng')} else {
-    lang = localStorage.getItem('lang');
-}
+lang = localStorage.getItem('lang');
+
 
 for (let i = 0; i <keysRus.length; i++) {
     if (lang == 'eng' || !lang) {
     keyboard.classList.add('keysEng');
     butCollection[i].textContent = keysEng[i];
-    localStorage.setItem('lang', 'rus');
+            //////////////////////////////////////////// TODO FIX 
+    // localStorage.setItem('lang', 'rus'); 
     }  else if(lang == 'rus') {
     keyboard.classList.remove('keysEng');
     butCollection[i].textContent = keysRus[i];
-    localStorage.setItem('lang', 'eng');
+    // localStorage.setItem('lang', 'eng');
     }
 }   
 
 const typing = event => {
   
     const target = event.target;
-  
-    butCollection.forEach(buttons => buttons.classList.remove('selected'));
-    butCollection.forEach(buttons => buttons.classList.remove('selected1'));
-
 
     if(target.classList == 'buttons') {
     if(target.textContent.toLowerCase() == 'backspace') {
         textarea.value = textarea.value.slice(0, -1);
-    }   else if(target.textContent.toLowerCase() == 'tab' || target.textContent.toLowerCase() == 'caps lock' || target.textContent.toLowerCase() == 'shift' || target.textContent.toLowerCase() == 'ctrl' || target.textContent.toLowerCase() == 'enter' || target.textContent.toLowerCase() == 'alt' ||                       target.textContent.toLowerCase() == 'fn' || target.textContent.toLowerCase() == 'win' || target.textContent.toLowerCase() == 'sft' ||                           target.textContent.toLowerCase() == 'print') {
+    }   else if(target.textContent.toLowerCase() == 'tab') {
+        textarea.value += '    ';
+    } else if(target.textContent.toLowerCase() == 'caps lock' || target.textContent.toLowerCase() == 'shift' || target.textContent.toLowerCase() == 'ctrl' || target.textContent.toLowerCase() == 'enter' || target.textContent.toLowerCase() == 'alt' || target.textContent.toLowerCase() == 'fn' || target.textContent.toLowerCase() == 'win' || target.textContent.toLowerCase() == 'sft' || target.textContent.toLowerCase() == 'print' || target.textContent.toLowerCase() == '←' || target.textContent.toLowerCase() == '↑' || target.textContent.toLowerCase() == '↓' || target.textContent.toLowerCase() == '→') {
                        textarea.value = textarea.value;
     }   else if(target.textContent.toLowerCase() == 'space') {
                        textarea.value += ' ';
@@ -78,11 +78,10 @@ const typing = event => {
                 textarea.value += target.textContent;
     } 
     target.classList.add('selected');
-    }
-
     setTimeout(() => {
-        butCollection.forEach(buttons => buttons.classList.remove('selected'));
-    }, 300);
+        target.classList.remove('selected');
+    },150);
+    }
 }
 
 document.addEventListener('click', typing);
@@ -100,11 +99,11 @@ const keyUp = (event) => {
        for (let i = 0; i <keysRus.length; i++) {
             if (lang == 'eng') {
             
-            butCollection[i].textContent = keysRus[i];
+            butCollection[i].textContent = keysEng[i];
             localStorage.setItem('lang', 'rus');
         }   if(lang == 'rus') {
             
-            butCollection[i].textContent = keysEng[i];
+            butCollection[i].textContent = keysRus[i];
             localStorage.setItem('lang', 'eng');
         }
     } 
@@ -117,9 +116,8 @@ document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 
 const realKey = (event) => {
-    // textarea.focus();
-        butCollection.forEach(buttons => buttons.classList.remove('selected1'));
-        butCollection.forEach(buttons => buttons.classList.remove('selected'));
+    textarea.focus();
+
         let target = event.code;
         console.log(target, event.keyCode);       
 
@@ -163,7 +161,7 @@ const realKey = (event) => {
 
     setTimeout(() => {
         butCollection.forEach(buttons => buttons.classList.remove('selected1'));
-    }, 300);
+    }, 150);
 }};
 
 document.addEventListener('keydown', realKey);
@@ -197,6 +195,8 @@ const capsLock = (event) => {
     }
 }
 document.addEventListener('keyup', capsLock);
+
+
 
 
     
