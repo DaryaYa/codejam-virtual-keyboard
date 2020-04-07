@@ -41,6 +41,17 @@ body {
     justify-content: center;
 }
 
+.instruction {
+    margin: 0 auto;
+    background-color: green;
+    width: 800px;
+    height: 35px;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 10px 0 0 10px;
+    color: lightgreen;
+}
+
 .row {
     border: 1px solid burlywood;
     height: 60px;

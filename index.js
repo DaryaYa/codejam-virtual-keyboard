@@ -26,11 +26,15 @@ keyboard.append(row);
 }
 
 body.append(keyboard);
+let instruction = document.createElement('div');
+instruction.classList.add('instruction');
+instruction.textContent = `Press Alt+Shift to change the language`;
+body.append(instruction);
 
 let butCollection = keyboard.querySelectorAll('.buttons');
 
 
-let keysEng = ['~', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i','o','p', '[', ']', '/', 'Caps Lock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'Enter', '', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'Sft', '←', '↑', 'Ctrl', 'Win', 'Alt', 'Space', 'Fn', 'Win', 'Print', 'Ctrl', '↓', '→'];
+let keysEng = ['\`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i','o','p', '[', ']', '\\', 'Caps Lock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'Enter', '', 'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'Sft', '←', '↑', 'Ctrl', 'Win', 'Alt', 'Space', 'Fn', 'Win', 'Print', 'Ctrl', '↓', '→'];
 
 let keysRus = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Caps Lock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', '', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'Sft', '←', '↑', 'Ctrl', 'Win', 'Alt', 'Space', 'Fn', 'Win', 'Print', 'Ctrl', '↓', '→'];
 
@@ -119,16 +123,10 @@ const realKey = (event) => {
         let target = event.code;
         console.log(target, event.keyCode);       
 
-    for(let i = 0; i < keysEng.length; i++) {
-    if (event.key == keysEng[i] || event.key == engUpp[i])  {
-        butCollection[i].classList.add('selected1');
-
-    } else if (event.key == keysRus[i] || event.key == rusUpp[i]) {
-        butCollection[i].classList.add('selected1');
-
-    } else if (target == 'Space') {
+    for (let i = 0; i < keysEng.length; i++) {
+    
+    if (target == 'Space') {
         butCollection[59].classList.add('selected1');
-
     } else if (target == 'ArrowLeft') {
         butCollection[54].classList.add('selected1');
     } else if (target == 'ArrowUp') {
@@ -150,15 +148,23 @@ const realKey = (event) => {
     } else if (target == 'MetaRight') {
         butCollection[61].classList.add('selected1');
     } else if (target == 'MetaLeft') {
-        target.preventDefault();
         butCollection[57].classList.add('selected1');
-    }
-    
+    } else if (target == 'Backquote') {
+        butCollection[0].classList.add('selected1');
+    } else if (target == 'Slash') {
+        butCollection[52].classList.add('selected1');
+    } else if (target == 'Period') {
+        butCollection[51].classList.add('selected1');
+    } else if (event.key == keysEng[i] || event.key == engUpp[i])  {
+        butCollection[i].classList.add('selected1');
+    } else if (event.key == keysRus[i] || event.key == rusUpp[i]) {
+        butCollection[i].classList.add('selected1');
     }  
+
     setTimeout(() => {
         butCollection.forEach(buttons => buttons.classList.remove('selected1'));
     }, 300);
-}
+}};
 
 document.addEventListener('keydown', realKey);
 
