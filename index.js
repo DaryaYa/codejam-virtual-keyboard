@@ -160,7 +160,10 @@ const realKey = (event) => {
         butCollection[i].classList.add('selected1');
     } else if (event.key == keysRus[i] || event.key == rusUpp[i]) {
         butCollection[i].classList.add('selected1');
-    }  
+    } else if (target == 'Comma') {
+        butCollection[50].classList.add('selected1');
+        
+    }
 
     setTimeout(() => {
         butCollection.forEach(buttons => buttons.classList.remove('selected1'));
