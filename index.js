@@ -52,11 +52,11 @@ for (let i = 0; i <keysRus.length; i++) {
     if (lang == 'eng' || !lang) {
     keyboard.classList.remove('keysEng');
     butCollection[i].textContent = keysRus[i];
-           
+           localStorage.setItem('lang', 'rus');
     }  else if(lang == 'rus') {
     keyboard.classList.add('keysEng');
     butCollection[i].textContent = keysEng[i];
-   
+        localStorage.setItem('lang', 'eng');
     }
 }   
 
@@ -69,7 +69,8 @@ const typing = event => {
         textarea.value = textarea.value.slice(0, -1);
     }   else if(target.textContent.toLowerCase() == 'tab') {
         textarea.value += '    ';
-    } else if(target.textContent.toLowerCase() == 'caps lock' || target.textContent.toLowerCase() == 'shift' || target.textContent.toLowerCase() == 'ctrl' || target.textContent.toLowerCase() == 'enter' || target.textContent.toLowerCase() == 'alt' || target.textContent.toLowerCase() == 'fn' || target.textContent.toLowerCase() == 'win' || target.textContent.toLowerCase() == 'sft' || target.textContent.toLowerCase() == 'print' || target.textContent.toLowerCase() == '←' || target.textContent.toLowerCase() == '↑' || target.textContent.toLowerCase() == '↓' || target.textContent.toLowerCase() == '→') {
+    } else if(target.textContent.toLowerCase() == 'enter') {textarea.value += '\n';}
+    else if(target.textContent.toLowerCase() == 'caps lock' || target.textContent.toLowerCase() == 'shift' || target.textContent.toLowerCase() == 'ctrl' || target.textContent.toLowerCase() == 'alt' || target.textContent.toLowerCase() == 'fn' || target.textContent.toLowerCase() == 'win' || target.textContent.toLowerCase() == 'sft' || target.textContent.toLowerCase() == 'print' || target.textContent.toLowerCase() == '←' || target.textContent.toLowerCase() == '↑' || target.textContent.toLowerCase() == '↓' || target.textContent.toLowerCase() == '→') {
                        textarea.value = textarea.value;
     }   else if(target.textContent.toLowerCase() == 'space') {
                        textarea.value += ' ';
@@ -107,8 +108,8 @@ let keyUp = (event) => {
             localStorage.setItem('lang', 'eng');
         }
     } 
-    // } else if (event.keyCode == 16) {
-    //     shiftBtn = false;  
+    } else if (event.keyCode == 16) {
+        shiftBtn = false;  
      } 
 }
 
@@ -196,6 +197,30 @@ const capsLock = (event) => {
 
 
 document.addEventListener('keyup', capsLock);
+
+document.addEventListener('keydown', (event) => {
+   if (event.keyCode == 16) {
+       for (let i = 0; i <keysRus.length; i++) {
+                if (lang == 'eng') {
+                    butCollection[i].textContent = rusUpp[i];
+                } else if(lang == 'rus') {
+                    butCollection[i].textContent = engUpp[i];
+                }       
+            }        
+   }
+})
+
+document.addEventListener('keyup', (event) => {
+   if (event.keyCode == 16) {
+       for (let i = 0; i <keysRus.length; i++) {
+                if (lang == 'eng') {
+                    butCollection[i].textContent = keysRus[i];
+                } else if(lang == 'rus') {
+                    butCollection[i].textContent = keysEng[i];
+                }       
+            }        
+   }
+})
 
 // let current = lang;
 // if (current == 'eng') {
