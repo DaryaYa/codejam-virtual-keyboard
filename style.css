@@ -1,0 +1,109 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-size: 24px;
+    color: darkblue;
+    font-weight: 900;
+    font-style: italic;
+    height: 79vh;
+    background: black center / cover no-repeat url('./bg.jpg');
+}
+
+.input {
+    border: 1px solid green;
+    width: 800px;
+    height: 150px;
+    display: block;
+    padding: 10px;
+    background-color: green;
+    color: wheat;
+    font-family: 'Comic Sans';
+    font-weight: 700;
+    font-style: italic;
+    font-size: 24px;
+    line-height: 40px;
+    margin: 10% auto 0;
+
+}
+
+.keyboard {
+    width: 800px;
+    height: 300px;
+    margin: 0 auto;
+    background-color: bisque;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.instruction {
+    margin: 0 auto;
+    /* background-color: green; */
+    width: 800px;
+    height: 35px;
+    font-size: 18px;
+    font-weight: normal;
+    padding: 10px 0 0 10px;
+    color: lightgreen;
+}
+
+.row {
+    border: 1px solid burlywood;
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.row:nth-child(3) .buttons:last-child {
+    display: none;
+}
+
+.row:last-child .buttons:nth-last-child(-n+4) {
+    display: none;
+}
+
+.row:last-child .buttons:nth-child(4) {
+    flex-basis: 113%;
+}
+
+.row:first-child .buttons:last-child,
+.row:nth-child(2) .buttons:first-child,
+.row:nth-child(3) .buttons:first-child,
+.row:nth-child(3) .buttons:nth-last-child(2),
+.row:nth-child(4) .buttons:first-child {
+    flex-basis: 37%;
+}
+
+.buttons {
+    border: 1px solid darkgreen;
+    width: 145px;
+    margin: 3px;
+    text-align: center;
+
+}
+
+.buttons:hover {
+    
+    background-color: rgba(54, 219, 95, 0.911);
+}
+
+.selected {
+    background-color: #17976d;
+    /* border: solid 2px black; */
+    box-shadow: black 3px 3px 5px inset;
+}
+
+.selected1 {
+    background-color: red;
+    box-shadow: black 3px 3px 5px inset;
+}
+
+.keysEng {
+    color: rgb(54, 34, 3);
+}
